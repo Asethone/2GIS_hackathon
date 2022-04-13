@@ -53,7 +53,7 @@ clean:
 	rm -rf ./$(BD)*.gcno ./$(BD)*.gcda ./$(BD)*.info report/
 
 cppcheck:
-	cppcheck --enable=all --suppress=missingIncludeSystem --suppress=unusedFunction ../src/
+	cppcheck --enable=all --suppress=missingIncludeSystem ../src/
 
 cpplint:
 	cp ../materials/linters/CPPLINT.cfg . && python3 ../materials/linters/cpplint.py --extensions=cpp *.cpp *.h

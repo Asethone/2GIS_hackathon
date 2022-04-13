@@ -14,7 +14,7 @@ int main() {
     // unsigned int start_time = std::clock();
     // for (int i = 0; i < 100000; i++) {
 
-    std::vector<gis::SearchResult> res = s1.search(haystack, needle, threshold);
+    gis::SearchResult res = s1.search(haystack, needle, threshold);
 
     for (int i = 0; i < res.size(); i++) {
         std::cout << "sequence of length = " << res[i]._length << " found at haystack offset "

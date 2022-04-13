@@ -8,7 +8,7 @@
     gis::DataSearch ds(haystack, needle, threshold); \
     gis::Search_1 s1;                                \
     ds.setSearch(&s1);                               \
-    std::vector<gis::SearchResult> res = ds.search();
+    auto res = ds.search();
 
 TEST(normal_cases, 1) {
     const char haystack[] = "vnk2435kvabco8awkh125kjneytbcd12qjhb4acd123xmnbqwnw4t";
