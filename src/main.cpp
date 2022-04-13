@@ -4,8 +4,8 @@
 #include "datasearch.h"
 
 int main() {
-    const char haystack[] = "abcd12ab34acb15";
-    const char needle[] = "acb";
+    const char haystack[] = "vnk2435kvabco8awkh125kjneytbcd12qjhb4acd123xmnbqwnw4t";
+    const char needle[] = "abcd1234";
     int threshold = 3;
     gis::DataSearch ds(haystack, needle, threshold);
     gis::Search_1 s1;
@@ -14,7 +14,7 @@ int main() {
     // unsigned int start_time = std::clock();
     // for (int i = 0; i < 100000; i++) {
 
-    gis::SearchResult res = s1.search(haystack, needle, threshold);
+    gis::SearchResult res = ds.search();
 
     for (int i = 0; i < res.size(); i++) {
         std::cout << "sequence of length = " << res[i]._length << " found at haystack offset "

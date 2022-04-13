@@ -6,7 +6,7 @@
 
 namespace gis {
 
-// STRUCT FOR STORING OUTPUT DATA
+// Struct for storing output data
 struct EntryData {
     int _length;
     int _h_offset;  // *** INT may be not enough for haystack with more than 2^31 chars!
@@ -17,7 +17,7 @@ struct EntryData {
 
 using SearchResult = std::vector<EntryData>;
 
-// STRATEGY PATTERN INTERFACE
+// Strategy pattern interface
 class SearchInterface {
  public:
     virtual ~SearchInterface() {}
@@ -31,7 +31,7 @@ class Search_1 : public SearchInterface {
     SearchResult search(const char *haystack, const char *needle, int threshold) override;
 };
 
-// CLASS FOR STORING INPUT DATA
+// Main class for storing input data and call search algorythms
 class DataSearch {
  private:
     const char *_haystack;

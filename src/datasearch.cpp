@@ -39,7 +39,10 @@ void DataSearch::setSearch(SearchInterface *search) { _search_strat = search; }
 
 SearchResult DataSearch::search() {
     if (_search_strat == nullptr) {
-        throw std::out_of_range("No search strategy has setted");
+        throw std::out_of_range("No search strategy have been setted");
+    }
+    if (_threshold <= 0) {
+        throw std::invalid_argument("Threshold must be non-zero positive integer number");
     }
     return _search_strat->search(_haystack, _needle, _threshold);
 }
