@@ -4,6 +4,8 @@ CFLAGS=-c #-Wall -Wextra -Werror
 LDFLAGS=#-Wall -Wextra -Werror
 LCOVFLAGS=-fprofile-arcs -ftest-coverage
 GTESTFLAGS=-lgtest
+SRC=datasearch.cpp
+OBJECTS=$(addprefix $(BD),$(SRC:.cpp=.o))
 CC=g++
 CC2=g++
 OS:=$(shell uname -s)
@@ -15,21 +17,16 @@ else
 	CHECKFLAGS+= -lrt -lpthread -lm
 endif
 
-all: clean s21_matrix_oop.a
+all: main
 
 main: $(BD)main_exe
 	./$(BD)main_exe
 
-./$(BD)main_exe: $(BD)s21_matrix_oop.o
+./$(BD)main_exe: $(OBJECTS) $(BD)main.o
 	$(CC) $^ -o $@
 
-debug: s21_matrix_oop.cpp
+debug: $(SRC) main.cpp
 	$(CC) -g $^ -o $(BD)main_exe
-
-s21_matrix_oop.a: $(BD)s21_matrix_oop.o
-	ar rcs s21_matrix_oop.a $^
-	ranlib s21_matrix_oop.a
-	cp s21_matrix_oop.a libs21_matrix_oop.a
 
 ./$(BD)%.o: %.cpp
 	$(CC) $(CFLAGS) $< -o $@
@@ -38,8 +35,8 @@ s21_matrix_oop.a: $(BD)s21_matrix_oop.o
 test: $(BD)main_test_exe
 	./$^
 
-./$(BD)main_test_exe: s21_matrix_oop.a $(BD)main_test.o
-	$(CC2) $(LDFLAGS) $^ -o $@ $(GTESTFLAGS) -ls21_matrix_oop -I./ -L./
+./$(BD)main_test_exe: $(OBJECTS) $(BD)main_test.o
+	$(CC2) $(LDFLAGS) $^ -o $@ $(GTESTFLAGS)
 
 #### GCOV #####
 gcov_report: $(BD)main_test.o
@@ -51,12 +48,9 @@ gcov_report: $(BD)main_test.o
 	genhtml -o $(BD)report $(BD)gcov_report.info
 	open $(BD)report/index.html
 
-clean: del-lib
+clean:
 	rm -rf ./$(BD)*.o ./$(BD)*_exe ./$(BD)*.dSYM ./$(BD)report
 	rm -rf ./$(BD)*.gcno ./$(BD)*.gcda ./$(BD)*.info report/
-
-del-lib:
-	rm -f *.a
 
 cppcheck:
 	cppcheck --enable=all --suppress=missingIncludeSystem --suppress=unusedFunction ../src/
