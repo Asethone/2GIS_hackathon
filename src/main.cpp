@@ -11,20 +11,20 @@ int main() {
     gis::Search_1 s1;
     ds.setSearch(&s1);
 
-    // unsigned int start_time = std::clock();
-    // for (int i = 0; i < 100000; i++) {
+    unsigned int start_time = std::clock();
+    for (int i = 0; i < 1000; i++) {
 
     gis::SearchResult res = ds.search();
 
-    for (int i = 0; i < res.size(); i++) {
-        std::cout << "sequence of length = " << res[i]._length << " found at haystack offset "
-                  << res[i]._h_offset << ", needle offset " << res[i]._n_offset << std::endl;
-    }
-
+    // for (int i = 0; i < res.size(); i++) {
+    //     std::cout << "sequence of length = " << res[i]._length << " found at haystack offset "
+    //               << res[i]._h_offset << ", needle offset " << res[i]._n_offset << std::endl;
     // }
-    // unsigned int end_time = clock();
-    // unsigned int search_time = end_time - start_time;
-    // std::cout << search_time;
+
+    }
+    unsigned int end_time = clock();
+    unsigned int search_time = end_time - start_time;
+    std::cout << search_time;
 
     return 0;
 }

@@ -6,8 +6,8 @@
 
 #define DATA_SET_SEARCH                              \
     gis::DataSearch ds(haystack, needle, threshold); \
-    gis::Search_1 s1;                                \
-    ds.setSearch(&s1);
+    gis::Search_1 s;                                 \
+    ds.setSearch(&s);
 
 TEST(normal_cases, 1) {
     const char haystack[] = "vnk2435kvabco8awkh125kjneytbcd12qjhb4acd123xmnbqwnw4t";
@@ -54,7 +54,7 @@ TEST(normal_cases, 3) {
     ASSERT_EQ(res[1]._n_offset, 29);
 }
 
-TEST(edge_cases, 2) {
+TEST(edge_cases, 1) {
     const char haystack[] = "acb";
     const char needle[] = "abcd12ab34acb15";
     int threshold = 3;
@@ -64,6 +64,27 @@ TEST(edge_cases, 2) {
     ASSERT_EQ(res[0]._length, 3);
     ASSERT_EQ(res[0]._h_offset, 0);
     ASSERT_EQ(res[0]._n_offset, 10);
+}
+
+TEST(edge_cases, 2) {
+    const char haystack[] = "acb";
+    const char needle[] = "acb";
+    int threshold = 3;
+    DATA_SET_SEARCH
+    auto res = ds.search();
+    ASSERT_EQ(res.size(), 1);
+    ASSERT_EQ(res[0]._length, 3);
+    ASSERT_EQ(res[0]._h_offset, 0);
+    ASSERT_EQ(res[0]._n_offset, 0);
+}
+
+TEST(edge_cases, 3) {
+    const char haystack[] = "acb";
+    const char needle[] = "acb";
+    int threshold = 4;
+    DATA_SET_SEARCH
+    auto res = ds.search();
+    ASSERT_EQ(res.size(), 0);
 }
 
 TEST(invalid_cases, 1) {

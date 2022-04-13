@@ -5,6 +5,7 @@ namespace gis {
 EntryData::EntryData(int length, int h_offset, int n_offset)
     : _length(length), _h_offset(h_offset), _n_offset(n_offset) {}
 
+// Simple algorithm
 SearchResult Search_1::search(const char *haystack, const char *needle, int threshold) {
     SearchResult result;
     const char *hp = haystack;
@@ -28,6 +29,35 @@ SearchResult Search_1::search(const char *haystack, const char *needle, int thre
                 hp++;
             }
         }
+    }
+    return result;
+}
+
+inline int findFirst(const char *str, char symbol, int last) {
+    for (int i = 0; i < last; i++) {
+        if (*(str + i) == symbol) return i;
+    }
+    return -1;
+}
+
+inline bool restEqual(const char *str, const char *pattern, int begin, int end) {
+    for (int i = begin; i < end; i++) {
+        if (*(str + i) != *(pattern + i)) return false;
+    }
+    return true;
+}
+
+// Raita algorithm
+SearchResult Search_2::search(const char *haystack, const char *needle, int threshold) {
+    SearchResult result;
+    const char *hp = haystack;
+    while (findFirst(hp, 0, threshold) != -1) {
+        if (threshold == 1) {
+            const char *ch = strchr(needle, *hp);
+        }
+
+
+        hp += threshold;
     }
     return result;
 }

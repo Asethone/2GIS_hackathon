@@ -22,11 +22,19 @@ class SearchInterface {
  public:
     virtual ~SearchInterface() {}
     virtual SearchResult search(const char *haystack, const char *needle, int threshold) = 0;
-    // Function returns vector, which is not really good. Result may be printed to stdout instead.
+    // Function returns vector (for tests implementation), which is not really good.
+    // Result may be printed directly to stdout instead.
 };
 
-// Simple iterative (Brute Force) search algorythm. It's slow, but takes minimum extra memory.
+// Simple iterative (Brute Force) search algorithm. It's slow, but takes minimum extra memory.
 class Search_1 : public SearchInterface {
+ public:
+    SearchResult search(const char *haystack, const char *needle, int threshold) override;
+};
+
+// Raita search algorithm. It's modification of Boyer–Moore algorithm. It's a fastest algorithm, 
+// but takes a O(p + 128) amount of memory. (p - needle length)
+class Search_2 : public SearchInterface {
  public:
     SearchResult search(const char *haystack, const char *needle, int threshold) override;
 };
