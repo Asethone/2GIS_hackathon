@@ -10,15 +10,19 @@ std::vector<SearchResult> Search_1::search(const char *haystack, const char *nee
     const char *hp = haystack;
     while (*hp) {
         const char *np = needle;
-        while (np && *np) {
+        while (np) {
             np = strchr(np, *hp);
             int cnt = 0;
             if (np) {
                 for (; np && *np == *hp; np++, hp++) {
+                    if (!*np || !*hp) break;
                     cnt++;
                 }
                 if (cnt >= threshold) {
                     result.push_back(SearchResult(cnt, hp - haystack - cnt, np - needle - cnt));
+                    break;
+                } else {
+                    hp -= cnt;
                 }
             } else {
                 hp++;
