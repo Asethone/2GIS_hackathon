@@ -6,7 +6,7 @@
 
 #define DATA_SET_SEARCH                              \
     gis::DataSearch ds(haystack, needle, threshold); \
-    gis::Search_1 s;                                 \
+    gis::Search_2 s;                                 \
     ds.setSearch(&s);
 
 TEST(normal_cases, 1) {
@@ -67,6 +67,15 @@ TEST(edge_cases, 1) {
 }
 
 TEST(edge_cases, 2) {
+    const char haystack[] = "abcd12a34b";
+    const char needle[] = "acb";
+    int threshold = 1;
+    DATA_SET_SEARCH
+    auto res = ds.search();
+    ASSERT_EQ(res.size(), 5);
+}
+
+TEST(edge_cases, 3) {
     const char haystack[] = "acb";
     const char needle[] = "acb";
     int threshold = 3;
@@ -78,7 +87,7 @@ TEST(edge_cases, 2) {
     ASSERT_EQ(res[0]._n_offset, 0);
 }
 
-TEST(edge_cases, 3) {
+TEST(edge_cases, 4) {
     const char haystack[] = "acb";
     const char needle[] = "acb";
     int threshold = 4;

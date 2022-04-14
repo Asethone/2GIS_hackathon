@@ -35,14 +35,14 @@ SearchResult Search_1::search(const char *haystack, const char *needle, int thre
 
 inline int findFirst(const char *str, char symbol, int last) {
     for (int i = 0; i < last; i++) {
-        if (*(str + i) == symbol) return i;
+        if (str[i] == symbol) return i;
     }
     return -1;
 }
 
 inline bool restEqual(const char *str, const char *pattern, int begin, int end) {
     for (int i = begin; i < end; i++) {
-        if (*(str + i) != *(pattern + i)) return false;
+        if (str[i] != pattern[i - begin + 1]) return false;
     }
     return true;
 }
@@ -51,11 +51,43 @@ inline bool restEqual(const char *str, const char *pattern, int begin, int end) 
 SearchResult Search_2::search(const char *haystack, const char *needle, int threshold) {
     SearchResult result;
     const char *hp = haystack;
-    while (true) {  // infinity cycle because of unknown length of haystack
-        if (threshold == 1) {
-            const char *ch = strchr(needle, *hp);
+    int n = strlen(needle);  // it's definitely finite number (max 1e6)
+    if (!n) return result;
+    int m = threshold;
+    // If threshold = 1, do first algorithm
+    if (m == 1) {
+        return Search_1().search(haystack, needle, threshold);
+    }
+    // else do Raita algorithm:
+    while (findFirst(hp, 0, m) == -1) {
+        // Preprocessing
+        int bmBc[128];
+        for (int i = 0; i < 128; i++) {
+            bmBc[i] = m;
         }
-
+        for (int i = 0; i < m - 1; i++) {
+            bmBc[hp[i]] = m - i - 1;
+        }
+        // first, last and middle chars
+        const char first = hp[0];
+        const char mid = hp[m / 2];
+        const char last = hp[m - 1];
+        int j = 0;
+        while (j <= n - m) {
+            char c = needle[j + m - 1];
+            if (last == c && mid == needle[j + m / 2] && first == needle[j]) {
+                if (restEqual(needle, hp, j + 1, j + m - 1)) {
+                    int cnt = m;
+                    while (hp[cnt] && needle[cnt + j] == hp[cnt]) {
+                        cnt++;
+                    }
+                    result.push_back(EntryData(cnt, hp - haystack, j));
+                    hp += cnt - 1;
+                    break;
+                }
+            }
+            j += bmBc[c];
+        }
         hp++;
     }
     return result;
