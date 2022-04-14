@@ -68,7 +68,7 @@ SearchResult Search_2::search(const char *haystack, const char *needle, int thre
             bmBc[i] = m;
         }
         for (int i = 0; i < m - 1; i++) {
-            bmBc[hp[i]] = m - i - 1;
+            bmBc[static_cast<std::size_t>(hp[i])] = m - i - 1;
         }
         // first, last and middle chars
         const char first = hp[0];
@@ -89,7 +89,7 @@ SearchResult Search_2::search(const char *haystack, const char *needle, int thre
                     break;
                 }
             }
-            j += bmBc[c];
+            j += bmBc[static_cast<std::size_t>(c)];
         }
         hp++;
     }

@@ -40,13 +40,13 @@ test: $(BD)main_test_exe
 
 #### GCOV #####
 gcov_report: $(BD)main_test.o
-	$(CC) $(CFLAGS) $(LCOVFLAGS) s21_matrix_oop.cpp -o $(BD)s21_matrix_oop.o
-	$(CC) $(LDFLAGS) $(LCOVFLAGS) $(BD)s21_matrix_oop.o $(BD)main_test.o -o $(BD)main_gcov_exe $(GTESTFLAGS)
+	$(CC) $(CFLAGS) $(LCOVFLAGS) model.cpp -o $(BD)model.o
+	$(CC) $(LDFLAGS) $(LCOVFLAGS) $(BD)model.o $(BD)main_test.o -o $(BD)main_gcov_exe $(GTESTFLAGS)
 	./$(BD)main_gcov_exe
 	# mv *.gcda *.gcno ./$(BD)
 	lcov -t "gcov_report" -o $(BD)gcov_report.info -c -d ./$(BD)
 	genhtml -o $(BD)report $(BD)gcov_report.info
-	open $(BD)report/index.html
+	open $(BD)report/$(PWD)/index.html
 
 clean:
 	rm -rf ./$(BD)*.o ./$(BD)*_exe ./$(BD)*.dSYM ./$(BD)report

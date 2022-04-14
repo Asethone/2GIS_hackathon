@@ -21,7 +21,7 @@ int main() {
     gis::View view(&controller);
 
     // You can change this class to Search_1 or Search_2
-    gis::Search_2 s;
+    gis::Search_1 s;
     view.setSearch(&s);
 
     // CLOCK_START
