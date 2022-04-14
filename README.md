@@ -1,13 +1,10 @@
+# 2GIS_HACKATHON
 
-
-- [2GIS_HACKATHON](#2gis_hackathon)
   - [Introduction](#introduction)
   - [Building and running](#building-and-running)
   - [List of symbols](#list-of-symbols)
   - [Brute Force algorithm](#brute-force-algorithm)
   - [Raita algorithm](#raita-algorithm)
-
-# 2GIS_HACKATHON
 
 ## Introduction
 
