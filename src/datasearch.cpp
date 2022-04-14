@@ -33,6 +33,7 @@ SearchResult Search_1::search(const char *haystack, const char *needle, int thre
     return result;
 }
 
+// Inline function for finding first occurence of "symbol" in string "str" before position "last"
 inline int findFirst(const char *str, char symbol, int last) {
     for (int i = 0; i < last; i++) {
         if (str[i] == symbol) return i;
@@ -40,6 +41,7 @@ inline int findFirst(const char *str, char symbol, int last) {
     return -1;
 }
 
+// Inline function for checking equality of string "str" and "patterns" from str position "begin" to "end"
 inline bool restEqual(const char *str, const char *pattern, int begin, int end) {
     for (int i = begin; i < end; i++) {
         if (str[i] != pattern[i - begin + 1]) return false;
@@ -73,6 +75,7 @@ SearchResult Search_2::search(const char *haystack, const char *needle, int thre
         const char mid = hp[m / 2];
         const char last = hp[m - 1];
         int j = 0;
+        // Compare needle and current substring in search window
         while (j <= n - m) {
             char c = needle[j + m - 1];
             if (last == c && mid == needle[j + m / 2] && first == needle[j]) {

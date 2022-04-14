@@ -4,11 +4,11 @@
 #include "datasearch.h"
 
 int main() {
-    const char haystack[] = "vnk2435kvabco8awkh125kjneytbcd12qjhb4acd123xmnbqwnw4t";
-    const char needle[] = "abcd1234";
-    int threshold = 3;
+    const char haystack[] = "vnk2435kvabco8awkh125kjusihgdoudsfhpvjsdpijf o";
+    const char needle[] = "sdijfohfugyuiosfdjklcxnjbhdsgfuieuwy9i0apfjnvsdbkjfgaasfajshfiua sfubwiufhiuasdhfudgsafbyhisagsfd97quwehfusdahgouhfqw80efyh9wduojgkajflksjfweuqfds90ifkjlfdty879dy80u9qiwo[ekwlrgejhdfnmbsk";
+    int threshold = 1;
     gis::DataSearch ds(haystack, needle, threshold);
-    gis::Search_1 s1;
+    gis::Search_2 s1;
     ds.setSearch(&s1);
 
     unsigned int start_time = std::clock();
