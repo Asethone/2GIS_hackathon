@@ -105,7 +105,7 @@ SearchResult Model::search(const char *haystack, const char *needle, int thresho
         throw std::out_of_range("No search strategy have been setted");
     }
     if (threshold <= 0) {
-        throw std::invalid_argument("Threshold must be non-zero positive integer number");
+        throw std::out_of_range("Threshold must be non-zero positive integer number");
     }
     return _search_strat->search(haystack, needle, threshold);
 }

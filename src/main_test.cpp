@@ -128,7 +128,24 @@ TEST(invalid_cases, 4) {
     const char needle[] = "acb";
     int threshold = 0;
     DATA_SET_SEARCH
-    ASSERT_THROW(m.search(haystack, needle, threshold), std::invalid_argument);
+    ASSERT_THROW(m.search(haystack, needle, threshold), std::out_of_range);
+}
+
+TEST(invalid_cases, 5) {
+    const char haystack[] = "abcd12ab34acb15";
+    const char needle[] = "ab";
+    int threshold = 3;
+    DATA_SET_SEARCH
+    auto res = m.search(haystack, needle, threshold);
+    ASSERT_EQ(res.size(), 0);
+}
+
+TEST(invalid_cases, 6) {
+    const char haystack[] = "abcd12ab34acb15";
+    const char needle[] = "ab";
+    int threshold = 3;
+    gis::Model m;
+    ASSERT_THROW(m.search(haystack, needle, threshold), std::out_of_range);
 }
 
 int main(int argc, char* argv[]) {
