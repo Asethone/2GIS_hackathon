@@ -9,10 +9,10 @@ namespace gis {
 // Struct for storing output data
 struct EntryData {
     int _length;
-    int _h_offset;  // *** INT may be not enough for haystack with more than 2^31 chars!
+    std::size_t _h_offset;  // *** size_t may be not enough for haystack with more than 2^64 - 2 chars!
     int _n_offset;
     // Constructor
-    EntryData(int length, int h_offset, int n_offset);
+    EntryData(int length, std::size_t h_offset, int n_offset);
 };
 
 using SearchResult = std::vector<EntryData>;
@@ -32,8 +32,8 @@ class Search_1 : public SearchInterface {
     SearchResult search(const char *haystack, const char *needle, int threshold) override;
 };
 
-// Raita search algorithm. It's modification of Boyer–Moore algorithm. It's a fastest algorithm, 
-// but takes a O(p + 128) amount of memory. (p - needle length)
+// Raita search algorithm (modification of Boyer–Moore algorithm). It's a fastest algorithm, 
+// but takes a O(p + 128) amount of memory. (p = needle length)
 class Search_2 : public SearchInterface {
  public:
     SearchResult search(const char *haystack, const char *needle, int threshold) override;

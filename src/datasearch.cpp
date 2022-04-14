@@ -2,7 +2,7 @@
 
 namespace gis {
 
-EntryData::EntryData(int length, int h_offset, int n_offset)
+EntryData::EntryData(int length, std::size_t h_offset, int n_offset)
     : _length(length), _h_offset(h_offset), _n_offset(n_offset) {}
 
 // Simple algorithm
@@ -51,13 +51,12 @@ inline bool restEqual(const char *str, const char *pattern, int begin, int end) 
 SearchResult Search_2::search(const char *haystack, const char *needle, int threshold) {
     SearchResult result;
     const char *hp = haystack;
-    while (findFirst(hp, 0, threshold) != -1) {
+    while (true) {  // infinity cycle because of unknown length of haystack
         if (threshold == 1) {
             const char *ch = strchr(needle, *hp);
         }
 
-
-        hp += threshold;
+        hp++;
     }
     return result;
 }
