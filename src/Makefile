@@ -4,7 +4,7 @@ CFLAGS=-c #-Wall -Wextra -Werror
 LDFLAGS=#-Wall -Wextra -Werror
 LCOVFLAGS=-fprofile-arcs -ftest-coverage
 GTESTFLAGS=-lgtest
-SRC=datasearch.cpp
+SRC=model.cpp controller.cpp view.cpp
 OBJECTS=$(addprefix $(BD),$(SRC:.cpp=.o))
 CC=g++
 CC2=g++
@@ -35,7 +35,7 @@ debug: $(SRC) main.cpp
 test: $(BD)main_test_exe
 	./$^
 
-./$(BD)main_test_exe: $(OBJECTS) $(BD)main_test.o
+./$(BD)main_test_exe: $(BD)model.o $(BD)main_test.o
 	$(CC2) $(LDFLAGS) $^ -o $@ $(GTESTFLAGS)
 
 #### GCOV #####

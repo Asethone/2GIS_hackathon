@@ -1,4 +1,4 @@
-#include "datasearch.h"
+#include "model.h"
 
 namespace gis {
 
@@ -96,19 +96,18 @@ SearchResult Search_2::search(const char *haystack, const char *needle, int thre
     return result;
 }
 
-DataSearch::DataSearch(const char *haystack, const char *needle, int threshold)
-    : _haystack(haystack), _needle(needle), _threshold(threshold), _search_strat(nullptr) {}
+Model::Model() : _search_strat(nullptr) {}
 
-void DataSearch::setSearch(SearchInterface *search) { _search_strat = search; }
+void Model::setSearch(SearchInterface *search) { _search_strat = search; }
 
-SearchResult DataSearch::search() {
+SearchResult Model::search(const char *haystack, const char *needle, int threshold) {
     if (_search_strat == nullptr) {
         throw std::out_of_range("No search strategy have been setted");
     }
-    if (_threshold <= 0) {
+    if (threshold <= 0) {
         throw std::invalid_argument("Threshold must be non-zero positive integer number");
     }
-    return _search_strat->search(_haystack, _needle, _threshold);
+    return _search_strat->search(haystack, needle, threshold);
 }
 
 }  // namespace gis

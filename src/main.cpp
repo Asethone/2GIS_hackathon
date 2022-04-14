@@ -1,30 +1,34 @@
 #include <ctime>
 #include <iostream>
 
-#include "datasearch.h"
+#include "view.h"
+
+#define CLOCK_START                         \
+    unsigned int start_time = std::clock(); \
+    for (int i = 0; i < 1000; i++) {
+#define CLOCK_END                                     \
+    }                                                 \
+    unsigned int end_time = clock();                  \
+    unsigned int search_time = end_time - start_time; \
+    std::cout << search_time;
 
 int main() {
-    const char haystack[] = "vnk2435kvabco8awkh125kjusihgdoudsfhpvjsdpijf o";
-    const char needle[] = "sdijfohfugyuiosfdjklcxnjbhdsgfuieuwy9i0apfjnvsdbkjfgaasfajshfiua sfubwiufhiuasdhfudgsafbyhisagsfd97quwehfusdahgouhfqw80efyh9wduojgkajflksjfweuqfds90ifkjlfdty879dy80u9qiwo[ekwlrgejhdfnmbsk";
-    int threshold = 1;
-    gis::DataSearch ds(haystack, needle, threshold);
-    gis::Search_2 s1;
-    ds.setSearch(&s1);
+    const char haystack[] = "vnk2435kvabco8awkh125kjneytbcd12qjhb4acd123xmnbqwnw4t";
+    const char needle[] = "abcd1234";
+    int threshold = 3;
+    gis::Model model;
+    gis::Controller controller(&model);
+    gis::View view(&controller);
 
-    unsigned int start_time = std::clock();
-    for (int i = 0; i < 1000; i++) {
+    // You can change this class to Search_1 or Search_2
+    gis::Search_2 s;
+    view.setSearch(&s);
 
-    gis::SearchResult res = ds.search();
+    // CLOCK_START
 
-    // for (int i = 0; i < res.size(); i++) {
-    //     std::cout << "sequence of length = " << res[i]._length << " found at haystack offset "
-    //               << res[i]._h_offset << ", needle offset " << res[i]._n_offset << std::endl;
-    // }
+    view.search(haystack, needle, threshold);
 
-    }
-    unsigned int end_time = clock();
-    unsigned int search_time = end_time - start_time;
-    std::cout << search_time;
+    // CLOCK_END
 
     return 0;
 }

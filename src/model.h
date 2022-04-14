@@ -32,7 +32,7 @@ class Search_1 : public SearchInterface {
     SearchResult search(const char *haystack, const char *needle, int threshold) override;
 };
 
-// Raita search algorithm (modification of Boyer–Moore algorithm). It's a fastest algorithm, 
+// Raita search algorithm (modification of Boyer–Moore algorithm). It's a fastest algorithm,
 // but takes a O(p + 128) amount of memory. (p = needle length)
 class Search_2 : public SearchInterface {
  public:
@@ -40,18 +40,15 @@ class Search_2 : public SearchInterface {
 };
 
 // Main class for storing input data and call search algorythms
-class DataSearch {
+class Model {
  private:
-    const char *_haystack;
-    const char *_needle;
-    int _threshold;
     // search strategy
     SearchInterface *_search_strat;
 
  public:
-    DataSearch(const char *haystack, const char *needle, int threshold);
+    Model();
     void setSearch(SearchInterface *search);
-    SearchResult search();
+    SearchResult search(const char *haystack, const char *needle, int threshold);
 };
 
 }  // namespace gis
